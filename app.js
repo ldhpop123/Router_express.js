@@ -10,6 +10,8 @@ const session = require('express-session');
 const dotenv = require('dotenv');
 // path 모듈 -> 파일 경로 관리
 const path = require('path');
+// nunjucks 모듈 -> Nunjucks 템플릿 엔진 사용
+const nunjucks = require('nunjucks');
 
 dotenv.config(); // dotenv 설정파일 불러오기
 
@@ -22,6 +24,18 @@ const app = express();
 // 포트 설정
 app.set('port',process.env.PORT || 3000);
     // 환경 변수에 PORT가 설정되어 있지 않으면 3000번 포트를 사용
+app.set('view engine', 'html');
+    // Express 애플리케이션에서 사용할 뷰 엔진을 설정
+
+// Nunjucks 템플릿 엔진을 설정
+nunjucks.configure('views', {
+    // 'view' -> 템플릿 파일이 위치한 디렉토리 경로 지정
+    express: app,
+    // nunjucks가 express의 템플릿 엔지으로 사용될 때, Express 애플리케이션과 연동될 수 있도록 설정
+    wach: true,
+    // 템플릿 파일의 변경 -> Nunjucks 자동 업데이트 수행
+    // 템플릿 파일이 변경되면 변경사항을 서버 재시작 없이 반영
+});
 
 // morgan 미들웨어 -> 개발 환경에서 요청 로그 출력
 app.use(morgan('dev'));
