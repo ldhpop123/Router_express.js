@@ -72,7 +72,7 @@ app.use('/user', userRouter);
 
 // 에러 핸들링 미들웨어 -> 에러가 발생한 경우 500 애러 응답
 app.use((req, res, next) => {
-    const error = new Error('${req.method} ${req.url} 라우터가 없습니다.');
+    const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`)
     // 새로운 에러 객체를 생성 -> 에러 메세지로 현재 메서드와 URL을 설정
     error.status = 404;
     // 에러 객체의 상태 코드를 404로 설정
