@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <!-- 넌직스 변수 -->
+</head>
+<body>
+    <h1>{{title}}</h1>
+    <p>Welcome to {{title}}</p>
+    <button class="{{title}}" type="submit">전송</button>
+    <input placeholder="{{title}} 연습">
+
+    {% set node = 'Node.js' %}
+    <!-- 넌직스 내부 변수 선언 -->
+    <!-- set 변수 = 값 -->
+    {% set js = 'javascript' %}
+    <p>{{node}}와 {{js}}</p>
+
+    <!-- HTML 이스케이프 -->
+    <p>{{'<strong>이스케이프</strong>' }}</p>
+    <p>{{'<strong>이스케이프하지 않음</strong>' | safe}}</p>
+
+    <!-- 넌직스 반복문 -->
+    <ul>
+        {% set fruits = ['사과', '배', '오렌지', '바나나', '복숭아'] %}
+        {% for item in fruits %}
+            <li>{{ loop.index }}번째 {{item}}</li>
+        {# loop.index -> 현재 반복의 인덱스, 각 반복이 실행될 때마다 1부터 시작하여 증가 #}
+        {% endfor %}
+    </ul>
+
+    <!-- 넌직스 조건문 -->
+    {% if isLoggendIn %}
+        {# isLoggendIn -> 사용자가 현재 로그인되어 있는지 여부를 나타내는 변수 #}
+        <div>로그인 되었습니다.</div>
+    {% else %}
+        <div>로그인이 필요합니다.</div>
+    {% endif %}
+
+    <!-- 넌직스 조건문 - 분기 -->
+    <ul>
+        {% set fruits = ['apple', 'pear', 'banana', 'orange', 'banana', 'orange', 'apple'] %}
+        {% for fruit in fruits %}
+            {% if fruit === 'apple' %}
+            <!-- fruits가 apple일 때 -->
+            <p>사과입니다.</p>
+        {% elif fruit === 'banana' %}
+            <!-- fruits가 apple일 때 -->
+            <p>바나나입니다.</p>
+        {% elif fruit === 'orange' %}
+            <!-- fruits가 apple일 때 -->
+            <p>오렌지입니다.</p>
+        {% else %}
+            <!-- 기본값 -->
+            <p>사과도 바나나도 오렌지도 아닙니다.</p>
+        {% endif %}
+    {% endfor %}
+    </ul>
+
+    <!-- 넌직스 조건문 - 이중 중괄호 안에서 사용 -->
+    <div>{{'참' if isLoggendIn}}</div>
+    <div>{{'참' if isLoggendIn else '거짓'}}</div>
+
+    <!-- 넌직스 include -->
+    {% include 'header.html' %}
+    <main>
+        <h1>메인 파일</h1>
+        <p>다른 파일을 include할 수 있습니다.</p>
+    </main>
+    {% include 'footer.html' %}
+</body>
+</html>
